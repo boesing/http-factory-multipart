@@ -12,18 +12,10 @@ use function array_values;
 
 final class MutltipartStreamFactory implements MultipartStreamFactoryInterface
 {
-    /** @var StreamFactoryInterface */
-    private $streamFactory;
-
-    /** @var PartOfMultipartStreamFactoryInterface */
-    private $partOfMultipartStreamFactory;
-
     public function __construct(
-        StreamFactoryInterface $streamFactory,
-        PartOfMultipartStreamFactoryInterface $partOfMultipartStreamFactory
+        private readonly StreamFactoryInterface $streamFactory,
+        private readonly PartOfMultipartStreamFactoryInterface $partOfMultipartStreamFactory
     ) {
-        $this->streamFactory                = $streamFactory;
-        $this->partOfMultipartStreamFactory = $partOfMultipartStreamFactory;
     }
 
     public function createMultipartStream(

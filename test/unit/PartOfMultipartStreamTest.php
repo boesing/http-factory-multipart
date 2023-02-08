@@ -9,31 +9,30 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
 use Stringable;
 
-use function assert;
 use function bin2hex;
 use function random_bytes;
 
 use const SEEK_CUR;
 
+/**
+ * @uses MockObject
+ */
 final class PartOfMultipartStreamTest extends TestCase
 {
-    /** @var MockObject&StreamInterface */
-    private $stream;
+    private MockObject&StreamInterface $stream;
 
     /** @var non-empty-string */
-    private $name;
+    private string $name;
 
-    /** @var PartOfMultipartStream */
-    private $part;
+    private PartOfMultipartStream $part;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->stream = $this->createMock(StreamInterface::class);
         $name         = bin2hex(random_bytes(10));
-        assert($name !== '');
-        $this->name = $name;
-        $this->part = new PartOfMultipartStream($this->name, $this->stream, '', []);
+        $this->name   = $name;
+        $this->part   = new PartOfMultipartStream($this->name, $this->stream, '', []);
     }
 
     public function testWillReturnExpectedName(): void
@@ -90,8 +89,8 @@ final class PartOfMultipartStreamTest extends TestCase
         $this->stream
             ->expects(self::once())
             ->method('tell')
-            ->willReturn(1235813);
-        self::assertSame(1235813, $this->part->tell());
+            ->willReturn(1_235_813);
+        self::assertSame(1_235_813, $this->part->tell());
 
         $this->stream
             ->expects(self::once())

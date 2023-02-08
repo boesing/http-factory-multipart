@@ -16,12 +16,9 @@ use function strtolower;
 
 final class PartOfMultipartStreamFactory implements PartOfMultipartStreamFactoryInterface
 {
-    /** @var MimeTypeGuesserInterface */
-    private $mimeTypeGuesser;
-
-    public function __construct(MimeTypeGuesserInterface $mimeTypeGuesser)
-    {
-        $this->mimeTypeGuesser = $mimeTypeGuesser;
+    public function __construct(
+        private readonly MimeTypeGuesserInterface $mimeTypeGuesser
+    ) {
     }
 
     public function createPartOfMultipart(

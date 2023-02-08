@@ -15,13 +15,15 @@ use function uniqid;
 
 use const SEEK_CUR;
 
+/**
+ * @uses MockObject
+ */
 final class MultipartStreamTest extends TestCase
 {
     /** @var non-empty-string */
-    private $boundary;
+    private string $boundary;
 
-    /** @var MockObject&StreamInterface */
-    private $writableStream;
+    private MockObject&StreamInterface $writableStream;
 
     protected function setUp(): void
     {
@@ -37,9 +39,7 @@ final class MultipartStreamTest extends TestCase
         $this->writableStream
             ->expects(self::any())
             ->method('write')
-            ->willReturnCallback(static function (string $content): int {
-                return strlen($content);
-            });
+            ->willReturnCallback(static fn(string $content): int => strlen($content));
     }
 
     public function testWillReturnPassedBoundary(): void
@@ -85,8 +85,8 @@ final class MultipartStreamTest extends TestCase
         $this->writableStream
             ->expects(self::once())
             ->method('tell')
-            ->willReturn(1235813);
-        self::assertSame(1235813, $stream->tell());
+            ->willReturn(1_235_813);
+        self::assertSame(1_235_813, $stream->tell());
 
         $this->writableStream
             ->expects(self::once())
@@ -168,7 +168,7 @@ final class MultipartStreamTest extends TestCase
         $stream->rewind();
         try {
             $stream->isWritable();
-        } catch (RuntimeException $exception) {
+        } catch (RuntimeException) {
             /** @psalm-suppress InternalMethod We do actually need this here. */
             self::addToAssertionCount(1);
         }

@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Boesing\Psr\Http\Message\Multipart\SymfonyMimeMimeTypeGuesser;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\MimeTypes;
 
 final class SymfonyMimeMimeTypeGuesserIntegrationTest extends TestCase
 {
-    /** @var SymfonyMimeMimeTypeGuesser */
-    private $guesser;
+    private SymfonyMimeMimeTypeGuesser $guesser;
 
-    /** @var MimeTypes */
-    private $mimeTypes;
+    private MimeTypes $mimeTypes;
 
     protected function setUp(): void
     {

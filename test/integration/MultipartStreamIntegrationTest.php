@@ -15,10 +15,9 @@ use function uniqid;
 final class MultipartStreamIntegrationTest extends TestCase
 {
     /** @var non-empty-string */
-    private $boundary;
+    private string $boundary;
 
-    /** @var Stream */
-    private $writableStream;
+    private Stream $writableStream;
 
     public function testWillGenerateExpectedMultipartStream(): void
     {

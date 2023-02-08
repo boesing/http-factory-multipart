@@ -9,13 +9,14 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\Exception\ExceptionInterface;
 use Symfony\Component\Mime\MimeTypesInterface;
 
+/**
+ * @uses MockObject
+ */
 final class SymfonyMimeMimeTypeGuesserTest extends TestCase
 {
-    /** @var MockObject&MimeTypesInterface */
-    private $mimeTypes;
+    private MockObject&MimeTypesInterface $mimeTypes;
 
-    /** @var SymfonyMimeMimeTypeGuesser */
-    private $guesser;
+    private SymfonyMimeMimeTypeGuesser $guesser;
 
     protected function setUp(): void
     {

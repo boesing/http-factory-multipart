@@ -9,7 +9,7 @@ use Symfony\Component\Mime\MimeTypesInterface;
 
 use function pathinfo;
 use function reset;
-use function strpos;
+use function str_contains;
 
 use const PATHINFO_EXTENSION;
 
@@ -18,12 +18,9 @@ use const PATHINFO_EXTENSION;
  */
 final class SymfonyMimeMimeTypeGuesser implements MimeTypeGuesserInterface
 {
-    /** @var MimeTypesInterface */
-    private $mimeTypes;
-
-    public function __construct(MimeTypesInterface $mimeTypes)
-    {
-        $this->mimeTypes = $mimeTypes;
+    public function __construct(
+        private readonly MimeTypesInterface $mimeTypes
+    ) {
     }
 
     public function guessMimeType(string $filename): string
@@ -39,14 +36,14 @@ final class SymfonyMimeMimeTypeGuesser implements MimeTypeGuesserInterface
 
         try {
             return $this->mimeTypes->guessMimeType($filename) ?? '';
-        } catch (ExceptionInterface $exception) {
+        } catch (ExceptionInterface) {
             return '';
         }
     }
 
     private function detetctMimeTypeFromExtension(string $filename): string
     {
-        if (strpos($filename, '.') === false) {
+        if (! str_contains($filename, '.')) {
             return '';
         }
 

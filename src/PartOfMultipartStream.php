@@ -10,27 +10,16 @@ use const SEEK_SET;
 
 final class PartOfMultipartStream implements PartOfMultipartStreamInterface
 {
-    /** @var non-empty-string */
-    private $name;
-
-    /** @var StreamInterface */
-    private $stream;
-
-    /** @var string */
-    private $filename;
-    /** @var array<non-empty-string,non-empty-string> */
-    private $headers;
-
     /**
      * @param non-empty-string $name
      * @param array<non-empty-string,non-empty-string> $headers
      */
-    public function __construct(string $name, StreamInterface $stream, string $filename = '', array $headers = [])
-    {
-        $this->name     = $name;
-        $this->stream   = $stream;
-        $this->filename = $filename;
-        $this->headers  = $headers;
+    public function __construct(
+        private readonly string $name,
+        private readonly StreamInterface $stream,
+        private readonly string $filename = '',
+        private readonly array $headers = []
+    ) {
     }
 
     public function getFilename(): string
@@ -53,7 +42,7 @@ final class PartOfMultipartStream implements PartOfMultipartStreamInterface
         return $this->name;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->stream;
     }

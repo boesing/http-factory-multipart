@@ -10,11 +10,9 @@ use Psr\Http\Message\StreamInterface;
 
 final class PartOfMultipartStreamFactoryTest extends TestCase
 {
-    /** @var MimeTypeGuesserInterface&MockObject */
-    private $mimeTypeGuesser;
+    private MimeTypeGuesserInterface&MockObject $mimeTypeGuesser;
 
-    /** @var PartOfMultipartStreamFactory */
-    private $factory;
+    private PartOfMultipartStreamFactory $factory;
 
     protected function setUp(): void
     {

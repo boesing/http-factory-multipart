@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Boesing\Psr\Http\Message\Multipart\ConfigProvider;
 use Generator;
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -14,12 +16,26 @@ use function array_replace_recursive;
 use function class_exists;
 use function interface_exists;
 
+/**
+ * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
+ */
 final class ConfigProviderIntegrationTest extends TestCase
 {
     use DependenciesFromConfigProviderExtractionTrait;
 
-    /** @var ConfigProvider */
-    private $configProvider;
+    private ConfigProvider $configProvider;
+
+    /**
+     * @param list<array-key> $serviceNames
+     * @psalm-assert non-empty-list<string> $serviceNames
+     */
+    private static function assertServiceNamesMatchingExpectations(array $serviceNames): void
+    {
+        self::assertNotEmpty($serviceNames);
+        foreach ($serviceNames as $serviceName) {
+            self::assertIsString($serviceName);
+        }
+    }
 
     protected function setUp(): void
     {
@@ -35,7 +51,11 @@ final class ConfigProviderIntegrationTest extends TestCase
         $dependencies = $this->extractDependenciesFromConfigProvider(new ConfigProvider());
         $serviceNames = $this->extractServiceNamesFromDependencyConfiguration($dependencies);
 
-        $dependencies = array_replace_recursive((new \Laminas\Diactoros\ConfigProvider())->getDependencies(), $dependencies);
+        /** @var ServiceManagerConfigurationType $dependenciesFromDiactoros */
+        $dependenciesFromDiactoros = (new \Laminas\Diactoros\ConfigProvider())->getDependencies();
+
+        /** @var ServiceManagerConfigurationType $dependencies */
+        $dependencies = array_replace_recursive($dependenciesFromDiactoros, $dependencies);
 
         yield ServiceManager::class => [
             new ServiceManager($dependencies),
@@ -56,21 +76,15 @@ final class ConfigProviderIntegrationTest extends TestCase
     }
 
     /**
-     * @param array $dependencies
      * @psalm-return non-empty-list<string>
-     * @psalm-suppress MixedReturnTypeCoercion We do explicitly assert stuff with phpunit and thus we can suppress here
      */
     private function extractServiceNamesFromDependencyConfiguration(array $dependencies): array
     {
         $factories = $dependencies['factories'] ?? [];
         self::assertIsArray($factories);
         $serviceNames = array_keys($factories);
-        self::assertNotEmpty($serviceNames);
-        foreach ($serviceNames as $serviceName) {
-            self::assertIsString($serviceName);
-        }
+        self::assertServiceNamesMatchingExpectations($serviceNames);
 
-        /** @psalm-suppress MixedReturnTypeCoercion We do explicitly assert stuff with phpunit and thus we can suppress here */
         return $serviceNames;
     }
 }

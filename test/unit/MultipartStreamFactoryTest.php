@@ -15,17 +15,13 @@ use function uniqid;
 
 final class MultipartStreamFactoryTest extends TestCase
 {
-    /** @var MockObject&StreamFactoryInterface */
-    private $streamFactory;
+    private MockObject&StreamFactoryInterface $streamFactory;
 
-    /** @var PartOfMultipartStreamFactoryInterface&MockObject */
-    private $partOfMultipartStreamFactory;
+    private PartOfMultipartStreamFactoryInterface&MockObject $partOfMultipartStreamFactory;
 
-    /** @var MutltipartStreamFactory */
-    private $multipartStreamFactory;
+    private MutltipartStreamFactory $multipartStreamFactory;
 
-    /** @var MockObject&StreamInterface */
-    private $stream;
+    private MockObject&StreamInterface $stream;
 
     protected function setUp(): void
     {

@@ -19,35 +19,25 @@ use const SEEK_SET;
  */
 final class MultipartStream implements MultipartStreamInterface
 {
-    private const CONTENT_CHUNK_SIZE_IN_BYTES = 1048576;
-
-    /** @var non-empty-string */
-    private $boundary;
+    private const CONTENT_CHUNK_SIZE_IN_BYTES = 1_048_576;
 
     /** @var non-empty-list<PartOfMultipartStreamInterface> */
-    private $parts;
+    private readonly array $parts;
 
-    /** @var StreamInterface */
-    private $buffer;
+    private ?int $size = null;
 
-    /** @var int|null */
-    private $size;
-
-    /** @var bool */
-    private $bufferCreated = false;
+    private bool $bufferCreated = false;
 
     /**
      * @param non-empty-string $boundary
      */
     public function __construct(
-        StreamInterface $buffer,
-        string $boundary,
+        private readonly StreamInterface $buffer,
+        private readonly string $boundary,
         PartOfMultipartStreamInterface ...$parts
     ) {
-        Assert::true($buffer->isWritable());
-        $this->buffer   = $buffer;
-        $this->boundary = $boundary;
-        $parts          = array_values($parts);
+        Assert::true($this->buffer->isWritable());
+        $parts = array_values($parts);
         assert($parts !== []);
         $this->parts = $parts;
     }
@@ -110,7 +100,7 @@ final class MultipartStream implements MultipartStreamInterface
 
     public function write($string): int
     {
-        throw new RuntimeException(sprintf('`%s` is not writable.', static::class));
+        throw new RuntimeException(sprintf('`%s` is not writable.', self::class));
     }
 
     public function isReadable(): bool

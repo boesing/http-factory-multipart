@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Boesing\Psr\Http\Message\Multipart\ConfigProvider;
 use PHPUnit\Framework\TestCase;
 
 use function array_keys;
@@ -12,8 +13,7 @@ final class ConfigProviderTest extends TestCase
 {
     use DependenciesFromConfigProviderExtractionTrait;
 
-    /** @var ConfigProvider */
-    private $configProvider;
+    private ConfigProvider $configProvider;
 
     protected function setUp(): void
     {

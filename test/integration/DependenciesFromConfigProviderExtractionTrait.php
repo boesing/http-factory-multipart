@@ -4,24 +4,23 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Laminas\ServiceManager\ConfigInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @see TestCase
  *
  * @psalm-require-extends TestCase
+ * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
  */
 trait DependenciesFromConfigProviderExtractionTrait
 {
     /**
-     * @param callable():array $configProvider
+     * @param callable():array{dependencies:ServiceManagerConfigurationType,...} $configProvider
      */
     private function extractDependenciesFromConfigProvider(callable $configProvider): array
     {
         $config = $configProvider();
-        self::assertArrayHasKey('dependencies', $config);
-        self::assertIsArray($config['dependencies']);
-
         return $config['dependencies'];
     }
 }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Boesing\Psr\Http\Message\Multipart\Module;
 use PHPUnit\Framework\TestCase;
 
 final class ModuleTest extends TestCase
 {
-    /** @var Module */
-    private $module;
+    private Module $module;
 
     protected function setUp(): void
     {
@@ -19,10 +19,8 @@ final class ModuleTest extends TestCase
 
     public function testWillContainSameConfigurationAsConfigProvider(): void
     {
-        $config         = $this->module->getConfig();
-        $expectedConfig = (new ConfigProvider())();
-        self::assertArrayHasKey('dependencies', $expectedConfig);
-        self::assertIsArray($expectedConfig['dependencies']);
+        $config                            = $this->module->getConfig();
+        $expectedConfig                    = (new ConfigProvider())();
         $expectedConfig['service_manager'] = $expectedConfig['dependencies'];
         unset($expectedConfig['dependencies']);
 
