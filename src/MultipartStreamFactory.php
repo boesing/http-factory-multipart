@@ -11,7 +11,7 @@ use Webmozart\Assert\Assert;
 
 use function array_values;
 
-final class MutltipartStreamFactory implements MultipartStreamFactoryInterface
+final class MultipartStreamFactory implements MultipartStreamFactoryInterface
 {
     public function __construct(
         private readonly StreamFactoryInterface $streamFactory,

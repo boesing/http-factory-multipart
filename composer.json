@@ -30,7 +30,10 @@
     "autoload": {
         "psr-4": {
             "Boesing\\Psr\\Http\\Message\\Multipart\\": "src/"
-        }
+        },
+        "files": [
+            "backwards-compatibility.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

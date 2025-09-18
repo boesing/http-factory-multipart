@@ -33,7 +33,7 @@ final class ConfigProvider
         return [
             'factories' => [
                 MimeTypeGuesserInterface::class              => static fn(): MimeTypeGuesserInterface => new SymfonyMimeMimeTypeGuesser(new MimeTypes()),
-                MultipartStreamFactoryInterface::class       => static fn(ContainerInterface $container): MultipartStreamFactoryInterface => new MutltipartStreamFactory(
+                MultipartStreamFactoryInterface::class       => static fn(ContainerInterface $container): MultipartStreamFactoryInterface => new MultipartStreamFactory(
                     $container->get(StreamFactoryInterface::class),
                     $container->get(PartOfMultipartStreamFactoryInterface::class)
                 ),
