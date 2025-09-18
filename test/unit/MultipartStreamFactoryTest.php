@@ -20,7 +20,7 @@ final class MultipartStreamFactoryTest extends TestCase
 
     private PartOfMultipartStreamFactoryInterface&MockObject $partOfMultipartStreamFactory;
 
-    private MutltipartStreamFactory $multipartStreamFactory;
+    private MultipartStreamFactory $multipartStreamFactory;
 
     private MockObject&StreamInterface $stream;
 
@@ -37,7 +37,7 @@ final class MultipartStreamFactoryTest extends TestCase
             ->method('createStream')
             ->willReturn($this->stream);
         $this->partOfMultipartStreamFactory = $this->createMock(PartOfMultipartStreamFactoryInterface::class);
-        $this->multipartStreamFactory       = new MutltipartStreamFactory(
+        $this->multipartStreamFactory       = new MultipartStreamFactory(
             $this->streamFactory,
             $this->partOfMultipartStreamFactory
         );
