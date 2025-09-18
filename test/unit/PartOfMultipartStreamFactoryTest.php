@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Override;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
@@ -14,6 +15,7 @@ final class PartOfMultipartStreamFactoryTest extends TestCase
 
     private PartOfMultipartStreamFactory $factory;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Override;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Webmozart\Assert\Assert;
@@ -18,6 +19,7 @@ final class MutltipartStreamFactory implements MultipartStreamFactoryInterface
     ) {
     }
 
+    #[Override]
     public function createMultipartStream(
         string $boundary,
         PartOfMultipartStreamInterface ...$parts
@@ -27,6 +29,7 @@ final class MutltipartStreamFactory implements MultipartStreamFactoryInterface
         return new MultipartStream($this->streamFactory->createStream(), $boundary, ...$parts);
     }
 
+    #[Override]
     public function createPartOfMultipart(
         string $name,
         StreamInterface $stream,
@@ -36,16 +39,19 @@ final class MutltipartStreamFactory implements MultipartStreamFactoryInterface
         return $this->partOfMultipartStreamFactory->createPartOfMultipart($name, $stream, $filename, $headers);
     }
 
+    #[Override]
     public function createStream(string $content = ''): StreamInterface
     {
         return $this->streamFactory->createStream($content);
     }
 
+    #[Override]
     public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
     {
         return $this->streamFactory->createStreamFromFile($filename, $mode);
     }
 
+    #[Override]
     public function createStreamFromResource($resource): StreamInterface
     {
         return $this->streamFactory->createStreamFromResource($resource);

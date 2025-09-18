@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Override;
 use Psr\Http\Message\StreamInterface;
 use RuntimeException;
 use Webmozart\Assert\Assert;
@@ -42,6 +43,7 @@ final class MultipartStream implements MultipartStreamInterface
         $this->parts = $parts;
     }
 
+    #[Override]
     public function getBoundary(): string
     {
         return $this->boundary;
@@ -52,72 +54,86 @@ final class MultipartStream implements MultipartStreamInterface
         return (string) $this->createBuffer();
     }
 
+    #[Override]
     public function close(): void
     {
         $this->buffer->close();
     }
 
+    #[Override]
     public function detach()
     {
         return $this->buffer->detach();
     }
 
+    #[Override]
     public function getSize(): ?int
     {
         $this->createBuffer();
         return $this->size;
     }
 
+    #[Override]
     public function tell(): int
     {
         return $this->buffer->tell();
     }
 
+    #[Override]
     public function eof(): bool
     {
         return $this->buffer->eof();
     }
 
+    #[Override]
     public function isSeekable(): bool
     {
         return $this->buffer->isSeekable();
     }
 
+    #[Override]
     public function seek($offset, $whence = SEEK_SET): void
     {
         $this->createBuffer()->seek($offset, $whence);
     }
 
+    #[Override]
     public function rewind(): void
     {
         $this->buffer->rewind();
     }
 
+    #[Override]
     public function isWritable(): bool
     {
         return false;
     }
 
+    #[Override]
     public function write($string): int
     {
         throw new RuntimeException(sprintf('`%s` is not writable.', self::class));
     }
 
+    #[Override]
     public function isReadable(): bool
     {
         return $this->buffer->isReadable();
     }
 
+    #[Override]
     public function read($length): string
     {
         return $this->createBuffer()->read($length);
     }
 
+    #[Override]
     public function getContents(): string
     {
         return $this->createBuffer()->getContents();
     }
 
+    #[Override]
     public function getMetadata($key = null)
     {
         return $this->buffer->getMetadata($key);

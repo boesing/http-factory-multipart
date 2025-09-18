@@ -6,6 +6,7 @@ namespace Boesing\Psr\Http\Message\Multipart;
 
 use Boesing\Psr\Http\Message\Multipart\SymfonyMimeMimeTypeGuesser;
 use Generator;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\MimeTypes;
@@ -16,6 +17,7 @@ final class SymfonyMimeMimeTypeGuesserIntegrationTest extends TestCase
 
     private MimeTypes $mimeTypes;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -37,7 +39,6 @@ final class SymfonyMimeMimeTypeGuesserIntegrationTest extends TestCase
     }
 
     /**
-     * @psalm-suppress PossiblyUnusedMethod Used in phpunit attribute {@see DataProvider}, not yet supported by psalm plugin.
      * @return Generator<non-empty-string, array{0: non-empty-string, 1: string}>
      */
     public static function mimeTypes(): Generator

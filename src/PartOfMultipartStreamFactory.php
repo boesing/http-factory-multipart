@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Boesing\Psr\Http\Message\Multipart;
 
 use Boesing\Psr\Http\Message\Multipart\MimeTypeGuesserInterface;
+use Override;
 use Psr\Http\Message\StreamInterface;
 use Webmozart\Assert\Assert;
 
@@ -21,6 +22,7 @@ final class PartOfMultipartStreamFactory implements PartOfMultipartStreamFactory
     ) {
     }
 
+    #[Override]
     public function createPartOfMultipart(
         string $name,
         StreamInterface $stream,

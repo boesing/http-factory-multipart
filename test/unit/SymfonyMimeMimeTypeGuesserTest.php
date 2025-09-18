@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Override;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\Exception\ExceptionInterface;
@@ -18,6 +19,7 @@ final class SymfonyMimeMimeTypeGuesserTest extends TestCase
 
     private SymfonyMimeMimeTypeGuesser $guesser;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
