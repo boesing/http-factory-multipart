@@ -25,7 +25,6 @@ final class ConfigProviderIntegrationTest extends TestCase
     use DependenciesFromConfigProviderExtractionTrait;
 
     /**
-     * @psalm-suppress PossiblyUnusedMethod Used in phpunit attribute {@see DataProvider}, not yet supported by psalm plugin.
      * @return Generator<non-empty-string, array{0: ContainerInterface, 1: non-empty-list<string>}>
      */
     public static function containerProvider(): Generator

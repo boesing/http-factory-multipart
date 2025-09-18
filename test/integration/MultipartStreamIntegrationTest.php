@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Boesing\Psr\Http\Message\Multipart;
 
 use Laminas\Diactoros\Stream;
+use Override;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
 
@@ -75,6 +76,7 @@ final class MultipartStreamIntegrationTest extends TestCase
         self::assertSame($expectedMultipartStreamContents, (string) $stream);
     }
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Boesing\Psr\Http\Message\Multipart;
 
+use Override;
 use Symfony\Component\Mime\Exception\ExceptionInterface;
 use Symfony\Component\Mime\MimeTypesInterface;
 
@@ -23,6 +24,7 @@ final class SymfonyMimeMimeTypeGuesser implements MimeTypeGuesserInterface
     ) {
     }
 
+    #[Override]
     public function guessMimeType(string $filename): string
     {
         $mimeTypeFromExtension = $this->detetctMimeTypeFromExtension($filename);

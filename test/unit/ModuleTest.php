@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Boesing\Psr\Http\Message\Multipart;
 
 use Boesing\Psr\Http\Message\Multipart\Module;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class ModuleTest extends TestCase
 {
     private Module $module;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
